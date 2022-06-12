@@ -1,0 +1,7 @@
+bottle
+bs4
+pandas
+requests
+lxml
+regex
+bcrypt
