@@ -1,6 +1,6 @@
 import datetime, locale
 
-locale.setlocale(locale.LC_ALL, "german")
+locale.setlocale(locale.LC_ALL, '')
 
 date_format = '%Y/%m/%d'
 mensa_format = '%A, %d.%m.%Y'
