@@ -1,4 +1,6 @@
 %from datetime import datetime
+%import timetable_helper
+
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 
@@ -118,162 +120,114 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-center sc-table-time">06:00 - 08:00</td>
-                                                    %for row in course:
+                                                    %course = timetable_helper.get_user_main_course("0")
+                                                    %for index, tuple in enumerate(course):
+                                                    %if tuple[0]:
                                                     <td>
-                                                        {{row[4]}}
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
+                                                            {{tuple[0]}}
+                                                        </div>
                                                     </td>
+                                                    %else:
+                                                    <td></td>
+                                                    %end
                                                     %end
                                                 </tr>
 
                                                 <tr>
                                                     <td class="sc-table-time">08:00 - 10:00</td>
+                                                    %course = timetable_helper.get_user_main_course("1")
+                                                    %for index, tuple in enumerate(course):
+                                                    %if tuple[0]:
                                                     <td>
-
-                                                    </td>
-                                                    <td id="b-2">
-                                                        <div class="sc-card sc-color-4 d-flex align-items-center justify-content-center">
-                                                            Marketing
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
+                                                            {{tuple[0]}}
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                        <div class="sc-card sc-color-1 d-flex align-items-center justify-content-center">
-                                                            Mechanik
-                                                        </div>
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
+                                                    %else:
+                                                    <td></td>
+                                                    %end
+                                                    %end
                                                 </tr>
 
                                                 <tr>
                                                     <td class="sc-table-time">10:00 - 12:00</td>
+                                                    %course = timetable_helper.get_user_main_course("2")
+                                                    %for index, tuple in enumerate(course):
+                                                    %if tuple[0]:
                                                     <td>
-
-                                                    </td>
-                                                    <td>
-                                                        <div class="sc-card sc-color-3 d-flex align-items-center justify-content-center">
-                                                            Mathe Übung
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
+                                                            {{tuple[0]}}
                                                         </div>
                                                     </td>
-
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
+                                                    %else:
+                                                    <td></td>
+                                                    %end
+                                                    %end
                                                 </tr>
 
                                                 <tr>
                                                     <td class="sc-table-time">12:00 - 14:00</td>
+                                                    %course = timetable_helper.get_user_main_course("3")
+                                                    %for index, tuple in enumerate(course):
+                                                    %if tuple[0]:
                                                     <td>
-
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
+                                                            {{tuple[0]}}
+                                                        </div>
                                                     </td>
-                                                    <td>
-
-                                                    </td>
-
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
+                                                    %else:
+                                                    <td></td>
+                                                    %end
+                                                    %end
                                                 </tr>
 
                                                 <tr>
                                                     <td class="sc-table-time">14:00 - 16:00</td>
+                                                    %course = timetable_helper.get_user_main_course("4")
+                                                    %for index, tuple in enumerate(course):
+                                                    %if tuple[0]:
                                                     <td>
-                                                        <div class="sc-card sc-color-1 d-flex align-items-center justify-content-center">
-                                                            Mechanik Übung
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
+                                                            {{tuple[0]}}
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                        <div class="sc-card sc-color-2 d-flex align-items-center justify-content-center">
-                                                            Statistik
-                                                        </div>
-                                                    </td>
-
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
+                                                    %else:
+                                                    <td></td>
+                                                    %end
+                                                    %end
                                                 </tr>
 
                                                 <tr>
                                                     <td class="sc-table-time">16:00 - 18:00</td>
+                                                    %course = timetable_helper.get_user_main_course("5")
+                                                    %for index, tuple in enumerate(course):
+                                                    %if tuple[0]:
                                                     <td>
-                                                        <div class="sc-card sc-color-2 d-flex align-items-center justify-content-center">
-                                                            Statistik
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
+                                                            {{tuple[0]}}
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                        <div class="sc-card sc-color-2 d-flex align-items-center justify-content-center">
-                                                            Statistik Tutorium
-                                                        </div>
-                                                    </td>
-
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
+                                                    %else:
+                                                    <td></td>
+                                                    %end
+                                                    %end
                                                 </tr>
 
                                                 <tr>
                                                     <td class="sc-table-time">18:00 - 20:00</td>
+                                                    %course = timetable_helper.get_user_main_course("6")
+                                                    %for index, tuple in enumerate(course):
+                                                    %if tuple[0]:
                                                     <td>
-
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
+                                                            {{tuple[0]}}
+                                                        </div>
                                                     </td>
-                                                    <td>
-
-                                                    </td>
-
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
+                                                    %else:
+                                                    <td></td>
+                                                    %end
+                                                    %end
                                                 </tr>
                                             </tbody>
                                         </table>

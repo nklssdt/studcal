@@ -8,6 +8,8 @@ def get_timetables():
     cur.execute("SELECT * FROM timetable WHERE userid = ?", (userid,))
     result = cur.fetchall()
 
+    con.close()
+
     return result
 
 def get_timetables_name(timetableid):
@@ -18,6 +20,9 @@ def get_timetables_name(timetableid):
 
     cur.execute("SELECT title FROM timetable WHERE userid = ? AND id= ?", (userid, timetableid,))
     result = cur.fetchone()
+
+    con.close()
+
     return result[0]
 
 def get_timetable_day(id):
@@ -78,27 +83,76 @@ def get_courses():
     cur.execute("SELECT * FROM courses")
     result = cur.fetchall()
 
+    con.close()
+
     return result
 
-def get_user_main_course():
+def get_user_main_course(timeslot):
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
-    cur.execute("SELECT id FROM timetable WHERE active = 1 AND userid = ?", (userid,))
-    timetableid = cur.fetchone()
-    
-    cur.execute("SELECT * FROM user_courses WHERE timetableid = ? AND userid = ?", (timetableid, userid,))
+    cur.execute("SELECT id FROM timetable WHERE active = 1 AND userid = ? AND removed = 0", (userid,))
+    timetableid = cur.fetchone()[0]
+
+    cur.execute("SELECT * FROM user_courses WHERE timetableid = ? AND userid = ? AND timeslot = ?", (timetableid, userid, timeslot))
     result = cur.fetchall()
 
-    return result
+    # 6 Dates 7 Time
+    newlist =  []
+
+    i = 0
+    if not result:
+        newlist = [('','', ''),('','', ''),('','', ''),('','', ''),('','', ''),('','', ''),('','', '')]
+
+    for row in result:
+        if row[6] != "a":
+            newlist.append(('','',''))
+        else:
+            newlist.append((row[3], row[5], row[0]))
+
+        if row[6] != "b":
+            newlist.append(('','',''))
+        else:
+            newlist.append((row[3], row[5], row[0]))
+
+        if row[6] != "c":
+            newlist.append(('','',''))
+        else:
+            newlist.append((row[3], row[5], row[0]))
+
+        if row[6] != "d":
+            newlist.append(('','',''))
+        else:
+            newlist.append((row[3], row[5], row[0]))
+
+        if row[6] != "e":
+            newlist.append(('','',''))
+        else:
+            newlist.append((row[3], row[5], row[0]))
+
+        if row[6] != "f":
+            newlist.append(('','',''))
+        else:
+            newlist.append((row[3], row[5], row[0]))
+
+        if row[6] != "g":
+            newlist.append(('','',''))
+        else:
+            newlist.append((row[3], row[5], row[0]))
+
+    con.close()
+
+    return newlist
 
 def get_user_courses(timetableid):
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
-    cur.execute("SELECT * FROM user_courses WHERE timetableid = ? AND userid = ?", (timetableid, userid,))
+    cur.execute("SELECT * FROM user_courses WHERE timetableid = ? AND userid = ? ORDER BY lecture", (timetableid, userid,))
     result = cur.fetchall()
+
+    con.close()
 
     return result
 
@@ -121,7 +175,7 @@ def create_timetable():
         result = cur.fetchall()
 
         for row in result:
-            cur.execute("INSERT INTO user_courses(userid, timetableid, lecture, type, color, day, timeslot) VALUES (?,?,?,?,?,?,?,?,?)", (userid, timetableid, row[3], row[4], row[5], row[6], row[7]))
+            cur.execute("INSERT INTO user_courses(userid, timetableid, lecture, type, color, day, timeslot) VALUES (?,?,?,?,?,?,?)", (userid, timetableid, row[3], row[4], row[5], row[6], row[7]))
             con.commit()
         con.close()
 
@@ -140,7 +194,15 @@ def create_course(tid):
     color = request.forms.get('color')
     day = request.forms.get('day')
     timeslot = request.forms.get('timeslot')
+    teacher = request.forms.get('teacher')
+    location = request.forms.get('location')
 
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
+
+    con = sql.connect("tmp/database.db")
+    cur = con.cursor()
+    cur.execute("INSERT INTO user_courses(userid, timetableid, lecture, type, color, day, timeslot, teacher, location) VALUES (?,?,?,?,?,?,?,?,?)", (userid, tid, lecture, type, color, day, timeslot, teacher, location))
+    con.commit()
+    con.close()
 
     return

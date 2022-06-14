@@ -1,12 +1,12 @@
 %import bottle
-<div class="col-3 sc-right-sidebar sc-bg-light">
+<div class="col-25 sc-right-sidebar sc-bg-light">
     <div class="h-100 d-flex flex-column">
-        <div class="row h-100 justify-content-center sc-calendar-box">
+        <div class="row h-100 justify-content-center sc-calendar-box" style="height: 20vh">
             <div class="text-center">
                 <div id="calendar-widget"></div>
             </div>
         </div>
-        <div class="row h-100 justify-content-center sc-task-box overflow-auto">
+        <div class="row h-100 justify-content-center sc-task-box overflow-auto" style="height: 50vh">
             %for row in rows:
             <div class="sc-task-card mb-2">
                 <div class="card-body">
@@ -23,7 +23,7 @@
             </div>
             %end
         </div>
-        <div class="row h-100 justify-content-center sc-mensa-box p-1" style="height: 25vh;">
+        <div class="row h-100 justify-content-center sc-mensa-box" style="height: 20vh">
             <div class="text-muted"></div>
             <div id="carouselMensa" class="carousel carousel-dark slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
@@ -35,21 +35,21 @@
                     <div class="carousel-item active">
                         <div class="text-center">
                             <span class="text-muted">Gericht 1</span>
-                            <h5>{{menu_0_0}}</h5>
+                            <h6>{{menu_0_0}}</h6>
                             <p>Preis für Studierende: {{menu_p_0_0}}</p>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="text-center">
                             <span class="text-muted">Gericht 2</span>
-                            <h5>{{menu_0_1}}</h5>
+                            <h6>{{menu_0_1}}</h6>
                             <p>Preis für Studierende: {{menu_p_0_1}}</p>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="text-center">
                             <span class="text-muted">Gericht 3</span>
-                            <h5>{{menu_0_2}}</h5>
+                            <h6>{{menu_0_2}}</h6>
                             <p>Preis für Studierende: {{menu_p_0_2}}</p>
                         </div>
                     </div>

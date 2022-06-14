@@ -40,11 +40,11 @@ def mainpage():
     #Sets the Cookie to keep track of the user
     response.set_cookie("pp", "/")
 
-    #Loads the data of Courses, Dishes and Tasks
-    courses = timetable_helper.get_user_main_course()
+    #Loads the data of Dishes and Tasks
     dishes = mensa_helper.view_dishes()
     tasks = tasks_helper.get_tasks()
-    return template('main', **dishes, course=courses, rows=tasks)
+
+    return template('main', **dishes, rows=tasks)
 
 @route('/mensa')
 @user_helper.require_uid

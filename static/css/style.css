@@ -40,6 +40,11 @@ a:hover {
     border-radius: 1.5rem;
 }
 
+.col-25 {
+    flex: 0 0 auto;
+    width: 20%;
+}
+
 .form-control {
     border-radius: 1.5rem;
 }
@@ -158,6 +163,11 @@ a:hover {
     cursor: pointer;
 }
 
+.sc-card.sc-tt {
+    color: white;
+    font-weight: 600;
+}
+
 .sc-card-body {
     padding: 1rem 0 !important;
 }
@@ -187,6 +197,13 @@ a:hover {
 
 .sc-no-ul {
     text-decoration: none;
+}
+
+.sc-dot {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 /* Buttons */
