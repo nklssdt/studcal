@@ -2,7 +2,7 @@ import sqlite3 as sql, user_helper, json
 from bottle import request
 
 def get_timetables():
-    con = sql.connect("datenbank.db")
+    con = sql.connect("tmp/database.db")
     cur = con.cursor()
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
     cur.execute("SELECT * FROM timetable WHERE userid = ?", (userid,))
@@ -11,7 +11,7 @@ def get_timetables():
     return result
 
 def get_timetables_name(timetableid):
-    con = sql.connect("datenbank.db")
+    con = sql.connect("tmp/database.db")
     cur = con.cursor()
 
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
@@ -73,7 +73,7 @@ def get_timetable_time(id):
         return time
 
 def get_courses():
-    con = sql.connect("datenbank.db")
+    con = sql.connect("tmp/database.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM courses")
     result = cur.fetchall()
@@ -82,7 +82,7 @@ def get_courses():
 
 def get_user_main_course():
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
-    con = sql.connect("datenbank.db")
+    con = sql.connect("tmp/database.db")
     cur = con.cursor()
     cur.execute("SELECT id FROM timetable WHERE active = 1 AND userid = ?", (userid,))
     timetableid = cur.fetchone()
@@ -95,7 +95,7 @@ def get_user_main_course():
 def get_user_courses(timetableid):
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
-    con = sql.connect("datenbank.db")
+    con = sql.connect("tmp/database.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM user_courses WHERE timetableid = ? AND userid = ?", (timetableid, userid,))
     result = cur.fetchall()
@@ -109,7 +109,7 @@ def create_timetable():
 
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
-    con = sql.connect("datenbank.db")
+    con = sql.connect("tmp/database.db")
     cur = con.cursor()
 
     if course and semester:
@@ -121,7 +121,7 @@ def create_timetable():
         result = cur.fetchall()
 
         for row in result:
-            cur.execute("INSERT INTO user_courses(userid, timetableid, course, semester, lecture, type, color, day, timeslot) VALUES (?,?,?,?,?,?,?,?,?)", (userid, timetableid, row[1], row[2], row[3], row[4], row[5], row[6], row[7]))
+            cur.execute("INSERT INTO user_courses(userid, timetableid, lecture, type, color, day, timeslot) VALUES (?,?,?,?,?,?,?,?,?)", (userid, timetableid, row[3], row[4], row[5], row[6], row[7]))
             con.commit()
         con.close()
 
@@ -131,5 +131,16 @@ def create_timetable():
         cur.execute("INSERT INTO timetable(userid, title) VALUES (?, ?)", (userid, name,))
         con.commit()
         con.close()
+
+    return
+
+def create_course(tid):
+    lecture = request.forms.get('lecture')
+    type = request.forms.get('type')
+    color = request.forms.get('color')
+    day = request.forms.get('day')
+    timeslot = request.forms.get('timeslot')
+
+    userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     return

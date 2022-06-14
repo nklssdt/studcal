@@ -1,6 +1,6 @@
-from bottle import route, run, template, static_file, redirect, response
+from bottle import route, run, template, static_file, redirect, response, Bottle
 
-import functions_helper, mensa_helper, user_helper, tasks_helper, timetable_helper
+import mensa_helper, user_helper, tasks_helper, timetable_helper
 
 @route('/static/<filepath:path>')
 def load_static(filepath):
@@ -27,9 +27,9 @@ def register():
 
 @route('/register', method='POST')
 def register_check():
-    if user_helper.register_user():
+    if user_helper.register_user(): #Function to register user
         redirect('./gate?success=account_created')
-    else:
+    else: #If registration not successfull, return to register page
         data = {}
         data['error_account_exists'] = True
         return template('register', **data)

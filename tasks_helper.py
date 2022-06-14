@@ -2,7 +2,7 @@ import sqlite3 as sql, user_helper, datetime
 from bottle import request, redirect
 
 def get_tasks():
-    con = sql.connect("datenbank.db")
+    con = sql.connect("tmp/database.db")
     cur = con.cursor()
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
     cur.execute("SELECT * FROM tasks WHERE userid = ? AND finished = 0 ORDER BY till_date ASC", (userid,))
@@ -21,7 +21,7 @@ def create_task():
 
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
-    con = sql.connect("datenbank.db")
+    con = sql.connect("tmp/database.db")
     cur = con.cursor()
     cur.execute("INSERT INTO tasks(userid, title, text, from_date, till_date) VALUES (?, ?, ?, ?, ?)", (userid, title, text, from_date, till_date,))
     con.commit()
@@ -32,7 +32,7 @@ def create_task():
 def complete_task(taskid):
     prev_page = request.get_cookie("pp")
 
-    con = sql.connect("datenbank.db")
+    con = sql.connect("tmp/database.db")
     cur = con.cursor()
     cur.execute("UPDATE tasks SET finished = 1 WHERE id = ?", (taskid,))
     con.commit()

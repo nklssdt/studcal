@@ -14,7 +14,7 @@ def login_verify():
     else:
         staylogged = 0
 
-    con = sql.connect("datenbank.db")
+    con = sql.connect("tmp/database.db")
     cur = con.cursor()
     cur.execute("SELECT id, password FROM users WHERE email = ?", (email,))
     results = cur.fetchall()
@@ -55,7 +55,7 @@ def register_user():
     password = request.forms.get('password')
     firstname = request.forms.get('firstname')
 
-    con = sql.connect("datenbank.db")
+    con = sql.connect("tmp/database.db")
     cur = con.cursor()
     cur.execute("SELECT id FROM users WHERE email = ?", (email,))
     if cur.fetchone():
@@ -64,7 +64,7 @@ def register_user():
         salt = ''.join(random.choice(string.ascii_letters) for i in range(30))
         password_hashed = hashpw(password.encode('utf-8'), gensalt())
 
-        con = sql.connect("datenbank.db")
+        con = sql.connect("tmp/database.db")
         cur = con.cursor()
         cur.execute("INSERT INTO users(email, password, firstname, salt) VALUES (?, ?, ?, ?)", (email, password_hashed, firstname, salt))
         con.commit()

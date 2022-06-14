@@ -5,3 +5,4 @@ requests
 lxml
 regex
 bcrypt
+bottle-sqlite

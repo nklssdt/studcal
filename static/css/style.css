@@ -44,6 +44,10 @@ a:hover {
     border-radius: 1.5rem;
 }
 
+.form-control-color {
+    border-radius: 0.5rem !important;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
     background-color: var(--secondary);

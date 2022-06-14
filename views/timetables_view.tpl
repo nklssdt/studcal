@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/bootstrap.css">
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/calendar-style.css">
     <link rel="icon" type="image/x-icon" href="/static/images/logo-icon.png" />
 </head>
 
@@ -91,7 +92,7 @@
                             <h1><span class="ms-2">Stundenplan "{{timetable_helper.get_timetables_name(timetableid)}}" verwalten</span></h1>
                         </div>
                         <div class="col-2">
-                            <button class="sc-btn sc-secondary float-end" type="button" data-bs-toggle="modal" data-bs-target="#timetableCreate">+ Hinzufügen</button>
+                            <button class="sc-btn sc-secondary float-end" type="button" data-bs-toggle="modal" data-bs-target="#lectureCreate">+ Hinzufügen</button>
                         </div>
                     </div>
                 </div>
@@ -103,21 +104,23 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-8">
-                                            <h5>{{row[5]}}</h5>
+                                            <h5>{{row[3]}}</h5>
                                             <span>
-                                                %if row[6] == "V":
+                                                %if row[4] == "V":
                                                 %module_type = "Vorlesung"
-                                                %elif row[6] == "Ü":
+                                                %elif row[4] == "Ü":
                                                 %module_type = "Übung"
-                                                %elif row[6] == "T":
+                                                %elif row[4] == "T":
                                                 %module_type = "Tutorium"
+                                                %else:
+                                                %module_type = "Sonstige"
                                                 %end
                                                 {{module_type}}
                                             </span>
                                         </div>
                                         <div class="col-3">
-                                            <span>{{timetable_helper.get_timetable_day(row[8])}}</span><br>
-                                            <span>{{timetable_helper.get_timetable_time(row[9])}}</span>
+                                            <span>{{timetable_helper.get_timetable_day(row[6])}}</span><br>
+                                            <span>{{timetable_helper.get_timetable_time(row[7])}}</span>
                                         </div>
                                         <div class="col-1 my-auto">
                                             <a href="#">
@@ -144,6 +147,95 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="lectureCreate" tabindex="-1" aria-labelledby="lectureCreateLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <form action="/timetables/create" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="timetableCreateLabel">Eintrag hinzufügen</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <label class="form-label fw-bolder" for="titel">Name*</label>
+                                    <input type="text" id="lecture" name="lecture" class="form-control" placeholder="Mathematik 1a" required>
+                                </div>
+                                <div class="mt-3">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="form-label fw-bolder" for="titel">Tag*</label>
+                                            <select class="form-select" name="day">
+                                                <option selected>Tag auswählen</option>
+                                                <option value="a">Montag</option>
+                                                <option value="b">Dienstag</option>
+                                                <option value="c">Mittwoch</option>
+                                                <option value="d">Donnerstag</option>
+                                                <option value="e">Freitag</option>
+                                                <option value="f">Samstag</option>
+                                                <option value="g">Sonntag</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label fw-bolder" for="titel">Zeitslot*</label>
+                                            <select class="form-select" name="timeslot">
+                                                <option selected>Tag auswählen</option>
+                                                <option value="0">06:00 - 08:00</option>
+                                                <option value="1">08:00 - 10:00</option>
+                                                <option value="2">10:00 - 12:00</option>
+                                                <option value="3">12:00 - 14:00</option>
+                                                <option value="4">14:00 - 16:00</option>
+                                                <option value="5">16:00 - 18:00</option>
+                                                <option value="6">18:00 - 20:00</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <label class="form-label fw-bolder" for="titel">Art der Veranstaltung</label>
+                                    <select class="form-select" name="type">
+                                        <option value="s" selected>Art auswählen</option>
+                                        <option value="v">Vorlesung</option>
+                                        <option value="ü">Übung</option>
+                                        <option value="t">Tutorium</option>
+                                        <option value="s">Sonstige</option>
+                                    </select>
+                                </div>
+                                <div class="mt-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="form-label fw-bolder" for="titel">Ort*</label>
+                                            <input type="text" id="location" name="location" class="form-control" placeholder="SFG 2020" required>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label fw-bolder" for="titel">Lehrkraft*</label>
+                                            <input type="text" id="teacher" name="teacher" class="form-control" placeholder="Frau Musterfrau" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <label class="form-label fw-bolder" for="titel">Hintergrundfarbe*</label>
+                                    <input type="color" id="color" name="color" list="colors" class="form-control form-control-color">
+                                    <datalist id="colors">
+                                        <option value="#c6e2e9">
+                                        <option value="#47cacc">
+                                        <option value="#ffbe88">
+                                        <option value="#ffbec2">
+                                        <option value="#faa2ae">
+                                        <option value="#a7beb6">
+                                        <option value="#c2d5a8">
+                                        <option value="#f1ffc4">
+                                        <option value="#ffee93">
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="sc-btn sc-light" data-bs-dismiss="modal">Abbrechen</button>
+                                <button type="submit" class="sc-btn sc-secondary">Hinzufügen</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             %include('rsidebar.tpl')
         </div>
     </div>
@@ -151,6 +243,7 @@
     <script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="/static/js/app.js"></script>
+    <script type="text/javascript" src="/static/js/calendar-bundle.js"></script>
 </body>
 
 </html>
