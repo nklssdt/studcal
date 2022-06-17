@@ -122,26 +122,26 @@ def get_timetables_active_courses(timeslot):
     newlist =  []
 
     if not result:
-        newlist = [('', '', ''),('','', ''),('','', ''),('','', ''),('','', ''),('','', ''),('','', '')]
+        newlist = [('', '', '', ''),('','', '', ''),('','', '', ''),('','', '', ''),('','', '', ''),('','', '', ''),('','', '', '')]
 
     else:
-        varA, varB, varC, varD, varE, varF, varG = (("","",""), )*7
+        varA, varB, varC, varD, varE, varF, varG = (("","","",""), )*7
 
         for row in result:
             if row[6] == "a":
-                varA = ((row[3], row[5], row[0]))
+                varA = ((row[3], row[5], row[0], row[2]))
             if row[6] == "b":
-                varB = ((row[3], row[5], row[0]))
+                varB = ((row[3], row[5], row[0], row[2]))
             if row[6] == "c":
-                varC = ((row[3], row[5], row[0]))
+                varC = ((row[3], row[5], row[0], row[2]))
             if row[6] == "d":
-                varD = ((row[3], row[5], row[0]))
+                varD = ((row[3], row[5], row[0], row[2]))
             if row[6] == "e":
-                varE = ((row[3], row[5], row[0]))
+                varE = ((row[3], row[5], row[0], row[2]))
             if row[6] == "f":
-                varF = ((row[3], row[5], row[0]))
+                varF = ((row[3], row[5], row[0], row[2]))
             if row[6] == "g":
-                varG = ((row[3], row[5], row[0]))
+                varG = ((row[3], row[5], row[0], row[2]))
                 
         newlist.append(varA)
         newlist.append(varB)

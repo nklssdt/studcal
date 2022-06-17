@@ -113,6 +113,8 @@ def timetable_action(action, id):
     elif action == "active":
         timetable_helper.set_active_timetable(id)
         return redirect('/timetables')
+    elif action == "edit":
+        return
 
 #================================ Tasks Area ================================
 

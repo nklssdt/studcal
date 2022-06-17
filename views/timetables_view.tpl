@@ -125,7 +125,7 @@
             <div class="modal fade" id="lectureCreate" tabindex="-1" aria-labelledby="lectureCreateLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <form action="/timetables/create_course/{{timetableid}}" method="post">
+                        <form action="/timetables/create_course/{{timetableid}}" method="post" accept-charset="utf-8">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="timetableCreateLabel">Eintrag hinzufügen</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -216,7 +216,7 @@
             <div class="modal fade" id="lectureEdit" tabindex="-1" aria-labelledby="lectureEditLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <form action="/timetables/view/{{timetableid}}/edit_course/{{lec[0]}}" method="post">
+                        <form action="/timetables/view/{{timetableid}}/edit_course/{{lec[0]}}" method="post" accept-charset="utf-8">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="timetableCreateLabel">Eintrag bearbeiten</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

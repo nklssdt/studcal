@@ -57,12 +57,16 @@
                                                 <tr>
                                                     <td class="text-center sc-table-time">06:00 - 08:00</td>
                                                     %course = timetable_helper.get_timetables_active_courses("0")
-                                                    %for index, tuple in enumerate(course):
-                                                    %if tuple[0]:
-                                                    <td>
-                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
-                                                            {{tuple[0]}}
+                                                    %for index, cval in enumerate(course):
+                                                    %if cval[0]:
+                                                    <td class="dropend">
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            {{cval[0]}}
                                                         </div>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}?action=edit&id={{cval[2]}}">Bearbeiten</a></li>
+                                                        </ul>
                                                     </td>
                                                     %else:
                                                     <td></td>
@@ -73,12 +77,16 @@
                                                 <tr>
                                                     <td class="sc-table-time">08:00 - 10:00</td>
                                                     %course = timetable_helper.get_timetables_active_courses("1")
-                                                    %for index, tuple in enumerate(course):
-                                                    %if tuple[0]:
-                                                    <td>
-                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
-                                                            {{tuple[0]}}
+                                                    %for index, cval in enumerate(course):
+                                                    %if cval[0]:
+                                                    <td class="dropend">
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            {{cval[0]}}
                                                         </div>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}?action=edit&id={{cval[2]}}">Bearbeiten</a></li>
+                                                        </ul>
                                                     </td>
                                                     %else:
                                                     <td></td>
@@ -89,12 +97,16 @@
                                                 <tr>
                                                     <td class="sc-table-time">10:00 - 12:00</td>
                                                     %course = timetable_helper.get_timetables_active_courses("2")
-                                                    %for index, tuple in enumerate(course):
-                                                    %if tuple[0]:
-                                                    <td>
-                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
-                                                            {{tuple[0]}}
+                                                    %for index, cval in enumerate(course):
+                                                    %if cval[0]:
+                                                    <td class="dropend">
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            {{cval[0]}}
                                                         </div>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}?action=edit&id={{cval[2]}}">Bearbeiten</a></li>
+                                                        </ul>
                                                     </td>
                                                     %else:
                                                     <td></td>
@@ -105,12 +117,16 @@
                                                 <tr>
                                                     <td class="sc-table-time">12:00 - 14:00</td>
                                                     %course = timetable_helper.get_timetables_active_courses("3")
-                                                    %for index, tuple in enumerate(course):
-                                                    %if tuple[0]:
-                                                    <td>
-                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
-                                                            {{tuple[0]}}
+                                                    %for index, cval in enumerate(course):
+                                                    %if cval[0]:
+                                                    <td class="dropend">
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            {{cval[0]}}
                                                         </div>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}?action=edit&id={{cval[2]}}">Bearbeiten</a></li>
+                                                        </ul>
                                                     </td>
                                                     %else:
                                                     <td></td>
@@ -121,12 +137,16 @@
                                                 <tr>
                                                     <td class="sc-table-time">14:00 - 16:00</td>
                                                     %course = timetable_helper.get_timetables_active_courses("4")
-                                                    %for index, tuple in enumerate(course):
-                                                    %if tuple[0]:
-                                                    <td>
-                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
-                                                            {{tuple[0]}}
+                                                    %for index, cval in enumerate(course):
+                                                    %if cval[0]:
+                                                    <td class="dropend">
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            {{cval[0]}}
                                                         </div>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}?action=edit&id={{cval[2]}}">Bearbeiten</a></li>
+                                                        </ul>
                                                     </td>
                                                     %else:
                                                     <td></td>
@@ -137,12 +157,16 @@
                                                 <tr>
                                                     <td class="sc-table-time">16:00 - 18:00</td>
                                                     %course = timetable_helper.get_timetables_active_courses("5")
-                                                    %for index, tuple in enumerate(course):
-                                                    %if tuple[0]:
-                                                    <td>
-                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
-                                                            {{tuple[0]}}
+                                                    %for index, cval in enumerate(course):
+                                                    %if cval[0]:
+                                                    <td class="dropend">
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            {{cval[0]}}
                                                         </div>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}?action=edit&id={{cval[2]}}">Bearbeiten</a></li>
+                                                        </ul>
                                                     </td>
                                                     %else:
                                                     <td></td>
@@ -153,12 +177,16 @@
                                                 <tr>
                                                     <td class="sc-table-time">18:00 - 20:00</td>
                                                     %course = timetable_helper.get_timetables_active_courses("6")
-                                                    %for index, tuple in enumerate(course):
-                                                    %if tuple[0]:
-                                                    <td>
-                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="{{tuple[2]}}" style="background-color: {{tuple[1]}}">
-                                                            {{tuple[0]}}
+                                                    %for index, cval in enumerate(course):
+                                                    %if cval[0]:
+                                                    <td class="dropend">
+                                                        <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            {{cval[0]}}
                                                         </div>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
+                                                            <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}?action=edit&id={{cval[2]}}">Bearbeiten</a></li>
+                                                        </ul>
                                                     </td>
                                                     %else:
                                                     <td></td>
