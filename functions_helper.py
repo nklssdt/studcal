@@ -2,6 +2,17 @@ import datetime, locale
 
 locale.setlocale(locale.LC_ALL, '')
 
+def setActivePage(page):
+    if page == "index":
+        return "active"
+    elif page == "mensa":
+        return "active"
+    elif page == "tasks":
+        return "active"
+    elif page == "timetable":
+        return "active"
+
+
 date_format = '%Y/%m/%d'
 mensa_format = '%A, %d.%m.%Y'
 month_format = '%B, %Y'

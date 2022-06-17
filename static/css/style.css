@@ -109,6 +109,10 @@ a:hover {
     max-height: 60px;
 }
 
+.sc-h-100 {
+    height: calc(100% - 60px);
+}
+
 .sc-container {
     max-height: calc(100vh - 60px);
 }
@@ -204,6 +208,68 @@ a:hover {
   width: 25px;
   border-radius: 50%;
   display: inline-block;
+}
+
+.active-tt {
+    fill: yellow;
+    color: yellow;
+}
+
+/* Calendar */
+.sc-calendar-date {
+    margin-top: 0.25rem;
+}
+
+.calendarList1 {
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(1, 40px);
+    align-items: center;
+    justify-items: center;
+    grid-gap: 8px;
+    font-size: 14px;
+    color: #707070;
+}
+
+.calendarList2 {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 40px);
+    align-items: center;
+    justify-items: center;
+    grid-gap: 8px;
+    font-size: 14px;
+    color: #707070;
+}
+
+.calendarList2 li {
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.calendarList2 li:hover {
+    color: white;
+    border-radius: 0.5rem;
+    background-color: var(--secondary);
+    -webkit-transition: background-color 0.1s, color 0.1s;
+    -ms-transition: background-color 0.1s, color 0.1s;
+    transition: background-color 0.1s, color 0.1s;
+}
+
+.calendarList2 .active {
+    color: white;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    background-color: var(--primary);
 }
 
 /* Buttons */

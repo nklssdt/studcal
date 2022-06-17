@@ -8,21 +8,6 @@
 })()
 
 $(document).ready(function () {
-    $('.sc-card').on('click', function () {
-        var getParentID = $(this).parent().attr('id');
-    });
-});
-
-$(document).ready(function () {
-    new Calendar({
-        id: '#calendar-widget',
-        calendarSize: 'large',
-        primaryColor: '#4294c3',
-        startWeekday: 1,
-    })
-});
-
-$(document).ready(function () {
     $("#passwordconf").bind('keyup change', function () {
         check_Password($("#password").val(), $("#passwordconf").val())
     })
@@ -30,7 +15,27 @@ $(document).ready(function () {
     $("#register").click(function () {
         check_Password($("#password").val(), $("#passwordconf").val())
     })
-})
+
+    if (window.location.href.indexOf("tasks") > -1) {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        var editModal = new bootstrap.Modal(document.getElementById("taskEdit"), {});
+        if (urlParams.get('action') == "edit") {
+            editModal.show();
+        };
+    }
+    
+    if (window.location.href.indexOf("timetables") > -1) {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        var editModal = new bootstrap.Modal(document.getElementById("lectureEdit"), {});
+        if (urlParams.get('action') == "edit") {
+            editModal.show();
+        };
+    }
+});
 
 function check_Password(password, password_conf) {
     if (password === "") {} else if (password.length <= 8) {

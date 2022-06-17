@@ -1,8 +1,9 @@
 %from datetime import datetime
+%from bottle import request
 %import timetable_helper
 
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="de" class="h-100">
 
 <head>
     <meta charset="utf-8">
@@ -12,79 +13,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/bootstrap.css">
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/calendar-style.css">
     <link rel="icon" type="image/x-icon" href="/static/images/logo-icon.png" />
 </head>
 
 <body class="d-flex sc-bg-main flex-column h-100">
-
-    <nav class="navbar navbar-light sc-bg-light sc-navbar">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="/static/images/logo-dark.png" alt="" height="36" class="d-inline-block align-text-top">
-            </a>
-        </div>
-    </nav>
-
+    %include('navbar.tpl')
     <div class="container-fluid h-100 sc-container">
         <div class="row justify-content-center h-100">
-            <div class="d-flex flex-column flex-shrink-0 sc-bg-light" style="width: 5rem;">
-                <ul class="nav nav-pills my-auto nav-flush flex-column mb-auto text-center">
-                    <li class="nav-item">
-                        <a href="../../" class="nav-link py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Stundenplan">
-                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../../tasks" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Aufgaben">
-                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                                <polyline points="10 9 9 9 8 9"></polyline>
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../../timetables" class="nav-link active py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Vorlesungen">
-                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
-                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../../mensa" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Mensa">
-                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
-                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-                                <line x1="6" y1="1" x2="6" y2="4"></line>
-                                <line x1="10" y1="1" x2="10" y2="4"></line>
-                                <line x1="14" y1="1" x2="14" y2="4"></line>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-                <div class="dropdown dropend border-top">
-                    <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdown-nutzermenu" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/static/images/default-user.jpg" alt="mdo" width="24" height="24" class="rounded-circle">
-                    </a>
-                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown-nutzermenu">
-                        <li><a class="dropdown-item" href="#">Einstellungen</a></li>
-                        <li><a class="dropdown-item" href="#">Profil</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="./logout">Abmelden</a></li>
-                    </ul>
-                </div>
-            </div>
+            %include('lsidebar.tpl')
             <div class="col h-100 overflow-auto">
                 <div class="container p-3 mt-3">
                     <div class="row ps-2">
@@ -125,7 +61,7 @@
                                                     <line x1="8" y1="2" x2="8" y2="6"></line>
                                                     <line x1="3" y1="10" x2="21" y2="10"></line>
                                                 </svg>
-                                                {{timetable_helper.get_timetable_day(row[6])}}
+                                                {{timetable_helper.get_timetable_value("day", row[6])}}
                                             </div>
 
                                         </div>
@@ -134,28 +70,35 @@
                                                     <circle cx="12" cy="12" r="10"></circle>
                                                     <polyline points="12 6 12 12 16 14"></polyline>
                                                 </svg>
-                                                {{timetable_helper.get_timetable_time(row[7])}}
+                                                {{timetable_helper.get_timetable_value("time", row[7])}}
                                             </div>
                                         </div>
                                         <div class="col text-center my-auto">
-                                            <div><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
+                                            <div class="{{'text-muted' if not row[8] else ""}}"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
                                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                                     <circle cx="12" cy="7" r="4"></circle>
                                                 </svg>
-                                                {{row[9]}}
+                                                <span>
+                                                    {{'Lehrer' if not row[9] else row[9]}}
+                                                </span>
                                             </div>
-                                            <div class="mt-2"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
+                                            <div class="mt-2 {{'text-muted' if not row[8] else ""}}"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
                                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                                     <circle cx="12" cy="10" r="3"></circle>
                                                 </svg>
-                                                {{row[8]}}
+                                                <span>
+                                                    {{'Ort' if not row[8] else row[8]}}
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col text-center my-auto">
                                             <span class="sc-dot my-auto" style="background-color: {{row[5]}};"></span>
                                         </div>
                                         <div class="col-1 my-auto">
-                                            <a href="#">
+                                            <a href="/timetables/view/{{timetableid}}/remove_course/{{row[0]}}">
+                                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                            </a>
+                                            <a href="/timetables/view/{{timetableid}}?action=edit&id={{row[0]}}">
                                                 <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
                                                     <path d="M12 20h9"></path>
                                                     <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
@@ -182,7 +125,7 @@
             <div class="modal fade" id="lectureCreate" tabindex="-1" aria-labelledby="lectureCreateLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <form action="/timetables/create" method="post">
+                        <form action="/timetables/create_course/{{timetableid}}" method="post">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="timetableCreateLabel">Eintrag hinzufügen</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -196,8 +139,8 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <label class="form-label fw-bolder" for="titel">Tag*</label>
-                                            <select class="form-select" name="day">
-                                                <option selected>Tag auswählen</option>
+                                            <select class="form-select" name="day" required>
+                                                <option value="" disabled>Tag auswählen</option>
                                                 <option value="a">Montag</option>
                                                 <option value="b">Dienstag</option>
                                                 <option value="c">Mittwoch</option>
@@ -209,8 +152,8 @@
                                         </div>
                                         <div class="col-6">
                                             <label class="form-label fw-bolder" for="titel">Zeitslot*</label>
-                                            <select class="form-select" name="timeslot">
-                                                <option selected>Zeit auswählen</option>
+                                            <select class="form-select" name="timeslot" required>
+                                                <option value="" disabled>Zeit auswählen</option>
                                                 <option value="0">06:00 - 08:00</option>
                                                 <option value="1">08:00 - 10:00</option>
                                                 <option value="2">10:00 - 12:00</option>
@@ -225,22 +168,22 @@
                                 <div class="mt-3">
                                     <label class="form-label fw-bolder" for="titel">Art der Veranstaltung</label>
                                     <select class="form-select" name="type">
-                                        <option value="s" selected>Art auswählen</option>
-                                        <option value="v">Vorlesung</option>
-                                        <option value="ü">Übung</option>
-                                        <option value="t">Tutorium</option>
+                                        <option value="S">Art auswählen</option>
+                                        <option value="V">Vorlesung</option>
+                                        <option value="Ü">Übung</option>
+                                        <option value="T">Tutorium</option>
                                         <option value="s">Sonstige</option>
                                     </select>
                                 </div>
                                 <div class="mt-3">
                                     <div class="row">
                                         <div class="col">
-                                            <label class="form-label fw-bolder" for="titel">Ort*</label>
-                                            <input type="text" id="location" name="location" class="form-control" placeholder="SFG 2020" required>
+                                            <label class="form-label fw-bolder" for="titel">Ort</label>
+                                            <input type="text" id="location" name="location" class="form-control" placeholder="SFG 2020">
                                         </div>
                                         <div class="col">
-                                            <label class="form-label fw-bolder" for="titel">Lehrkraft*</label>
-                                            <input type="text" id="teacher" name="teacher" class="form-control" placeholder="Frau Musterfrau" required>
+                                            <label class="form-label fw-bolder" for="titel">Lehrkraft</label>
+                                            <input type="text" id="teacher" name="teacher" class="form-control" placeholder="Frau Musterfrau">
                                         </div>
                                     </div>
                                 </div>
@@ -268,6 +211,98 @@
                     </div>
                 </div>
             </div>
+            %lecture = timetable_helper.get_lecture(request.query.id)
+            %for lec in lecture:
+            <div class="modal fade" id="lectureEdit" tabindex="-1" aria-labelledby="lectureEditLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <form action="/timetables/view/{{timetableid}}/edit_course/{{lec[0]}}" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="timetableCreateLabel">Eintrag bearbeiten</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <label class="form-label fw-bolder" for="titel">Name*</label>
+                                    <input type="text" id="lecture" name="lecture" class="form-control" placeholder="Mathematik 1a" value="{{lec[3]}}" required>
+                                </div>
+                                <div class="mt-3">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="form-label fw-bolder" for="titel">Tag*</label>
+                                            <select class="form-select" name="day" required>
+                                                <option value="">Tag auswählen</option>
+                                                <option value="a" {{'selected="selected"' if lec[6] == "a" else ""}}>Montag</option>
+                                                <option value="b" {{'selected="selected"' if lec[6] == "b" else ""}}>Dienstag</option>
+                                                <option value="c" {{'selected="selected"' if lec[6] == "c" else ""}}>Mittwoch</option>
+                                                <option value="d" {{'selected="selected"' if lec[6] == "d" else ""}}>Donnerstag</option>
+                                                <option value="e" {{'selected="selected"' if lec[6] == "e" else ""}}>Freitag</option>
+                                                <option value="f" {{'selected="selected"' if lec[6] == "f" else ""}}>Samstag</option>
+                                                <option value="g" {{'selected="selected"' if lec[6] == "g" else ""}}>Sonntag</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label fw-bolder" for="titel">Zeitslot*</label>
+                                            <select class="form-select" name="timeslot" required>
+                                                <option value="">Zeit auswählen</option>
+                                                <option value="0" {{'selected="selected"' if lec[7] == "0" else ""}}>06:00 - 08:00</option>
+                                                <option value="1" {{'selected="selected"' if lec[7] == "1" else ""}}>08:00 - 10:00</option>
+                                                <option value="2" {{'selected="selected"' if lec[7] == "2" else ""}}>10:00 - 12:00</option>
+                                                <option value="3" {{'selected="selected"' if lec[7] == "3" else ""}}>12:00 - 14:00</option>
+                                                <option value="4" {{'selected="selected"' if lec[7] == "4" else ""}}>14:00 - 16:00</option>
+                                                <option value="5" {{'selected="selected"' if lec[7] == "5" else ""}}>16:00 - 18:00</option>
+                                                <option value="6" {{'selected="selected"' if lec[7] == "6" else ""}}>18:00 - 20:00</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <label class="form-label fw-bolder" for="titel">Art der Veranstaltung</label>
+                                    <select class="form-select" name="type">
+                                        <option value="S">Art auswählen</option>
+                                        <option value="V" {{'selected="selected"' if lec[4] == "V" else ""}}>Vorlesung</option>
+                                        <option value="Ü" {{'selected="selected"' if lec[4] == "Ü" else ""}}>Übung</option>
+                                        <option value="T" {{'selected="selected"' if lec[4] == "T" else ""}}>Tutorium</option>
+                                        <option value="S" {{'selected="selected"' if lec[4] == "S" else ""}}>Sonstige</option>
+                                    </select>
+                                </div>
+                                <div class="mt-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="form-label fw-bolder" for="titel">Ort</label>
+                                            <input type="text" id="location" name="location" class="form-control" placeholder="SFG 2020" value="{{lec[8]}}">
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label fw-bolder" for="titel">Lehrkraft</label>
+                                            <input type="text" id="teacher" name="teacher" class="form-control" placeholder="Frau Musterfrau" value="{{lec[9]}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <label class="form-label fw-bolder" for="titel">Hintergrundfarbe*</label>
+                                    <input type="color" id="color" name="color" list="colors" class="form-control form-control-color" value="{{lec[5]}}">
+                                    <datalist id="colors">
+                                        <option value="#c6e2e9">
+                                        <option value="#47cacc">
+                                        <option value="#ffbe88">
+                                        <option value="#ffbec2">
+                                        <option value="#faa2ae">
+                                        <option value="#a7beb6">
+                                        <option value="#c2d5a8">
+                                        <option value="#f1ffc4">
+                                        <option value="#ffee93">
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="sc-btn sc-light" data-bs-dismiss="modal">Abbrechen</button>
+                                <button type="submit" class="sc-btn sc-secondary">Bearbeiten</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            %end
             %include('rsidebar.tpl')
         </div>
     </div>
@@ -275,7 +310,7 @@
     <script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="/static/js/app.js"></script>
-    <script type="text/javascript" src="/static/js/calendar-bundle.js"></script>
+    <script type="text/javascript" src="/static/js/calendar.js"></script>
 </body>
 
 </html>
