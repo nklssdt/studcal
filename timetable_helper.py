@@ -152,8 +152,6 @@ def get_timetables_active_courses(timeslot):
         newlist.append(varG)
 
     con.close()
-
-    print(newlist)
     return newlist
 
 def get_user_courses(timetableid):
@@ -241,8 +239,6 @@ def edit_course(cid):
     teacher = request.forms.get('teacher')
     location = request.forms.get('location')
 
-    print(lecture)
-
     if not timeslot:
         timeslot = ""
     if not day:
@@ -256,7 +252,6 @@ def edit_course(cid):
 
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
-    cur.execute('PRAGMA encoding="UTF-8";')
     cur.execute("UPDATE user_courses SET lecture = ?, type = ?, color = ?, day = ?, timeslot = ?, teacher = ?, location = ?  WHERE userid = ? AND id = ?", (lecture, type, color, day, timeslot, teacher, location, userid, cid,))
     con.commit()
     con.close()
