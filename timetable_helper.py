@@ -231,7 +231,7 @@ def create_course(tid):
     return
 
 def edit_course(cid):
-    lecture = request.forms.get('lecture')
+    lecture = dict(request.POST.decode())['lecture']
     type = request.forms.get('type')
     color = request.forms.get('color')
     day = request.forms.get('day')
