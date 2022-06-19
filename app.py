@@ -79,42 +79,45 @@ def timetables():
 @route('/timetables/create', method='POST')
 @user_helper.require_uid
 def timetables_new():
-    timetable_helper.create_timetable()
-    return redirect('/timetables')
+    tid = timetable_helper.create_timetable()
+    return redirect('/timetables/view/' + str(tid))
 
-@route('/timetables/create_course/<id>', method='POST')
+@route('/timetables/create_course/<tid>', method='POST')
 @user_helper.require_uid
-def timetable_create_course(id):
-    timetable_helper.create_course(id)
-    return redirect('/timetables/view/' + id)
-
-@route('/timetables/view/<tid>/edit_course/<id>', method='POST')
-@user_helper.require_uid
-def timetable_edit_course(id, tid):
-    timetable_helper.edit_course(id)
+def timetable_create_course(tid):
+    timetable_helper.create_course(tid)
     return redirect('/timetables/view/' + tid)
 
-@route('/timetables/view/<tid>/remove_course/<id>')
+@route('/timetables/view/<tid>/edit_course/<tid>', method='POST')
 @user_helper.require_uid
-def timetable_remove_course(id, tid):
-    timetable_helper.remove_course(id)
+def timetable_edit_course(cid, tid):
+    timetable_helper.edit_course(cid)
     return redirect('/timetables/view/' + tid)
 
-@route('/timetables/<action>/<id>')
+@route('/timetables/view/<tid>/remove_course/<cid>')
 @user_helper.require_uid
-def timetable_action(action, id):
+def timetable_remove_course(cid, tid):
+    timetable_helper.remove_course(cid)
+    return redirect('/timetables/view/' + tid)
+
+@route('/timetables/<action>/<tid>')
+@user_helper.require_uid
+def timetable_action(action, tid):
     if action == "view":
-        courses = timetable_helper.get_user_courses(id)
+        courses = timetable_helper.get_user_courses(tid)
 
         #Loads the data of Dishes, Tasks, Courses and Timetables
         dishes = mensa_helper.view_dishes()
         tasks = tasks_helper.get_tasks()
-        return template('timetables_view',**dishes, active_page="timetables", timetableid=id, rows=tasks, course=courses)
+        return template('timetables_view',**dishes, active_page="timetables", timetableid=tid, rows=tasks, course=courses)
     elif action == "active":
-        timetable_helper.set_active_timetable(id)
+        timetable_helper.set_active_timetable(tid)
         return redirect('/timetables')
     elif action == "edit":
         return
+    elif action == "remove":
+        timetable_helper.remove_timetable(tid)
+        return redirect('/timetables')
 
 #================================ Tasks Area ================================
 
@@ -129,28 +132,28 @@ def tasks():
     dishes = mensa_helper.view_dishes()
     return template('tasks', **dishes, active_page="tasks", rows=tasks)
 
-@route('/tasks/<action>/<id>', method='POST')
+@route('/tasks/<action>/<tid>', method='POST')
 @user_helper.require_uid
-def tasks_action(action, id):
+def tasks_action(action, tid):
     if action == "create":
         tasks_helper.create_task()
         redirect('/tasks')
     elif action == "edit":
-        tasks_helper.edit_task(id)
-        redirect('/tasks/view/' + id)
+        tasks_helper.edit_task(tid)
+        redirect('/tasks/view/' + tid)
     return
 
-@route('/tasks/<action>/<id>')
+@route('/tasks/<action>/<tid>')
 @user_helper.require_uid
-def tasks_action(action, id):
+def tasks_action(action, tid):
     #Loads the data of Dishes and Tasks
     tasks = tasks_helper.get_tasks()
     dishes = mensa_helper.view_dishes()
 
     if action == "complete":
-        tasks_helper.complete_task(id)
+        tasks_helper.complete_task(tid)
     elif action == "view":
-        task_data = tasks_helper.view_task(id)
+        task_data = tasks_helper.view_task(tid)
         return template('tasks_view', **dishes, active_page="tasks", rows=tasks, taskdata=task_data)
 
 

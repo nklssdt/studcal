@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import sqlite3 as sql, user_helper, ast
-from bottle import request
+from bottle import request, redirect
 
 def get_timetables():
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
-    cur.execute("SELECT * FROM timetable WHERE userid = ? ORDER BY active DESC", (userid,))
+    cur.execute("SELECT * FROM timetable WHERE userid = ? ORDER BY active DESC, title ASC", (userid,))
     result = cur.fetchall()
 
     con.close()
@@ -42,7 +42,7 @@ def get_timetables_active():
 
     return result
 
-def set_active_timetable(id):
+def set_active_timetable(tid):
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")
@@ -50,49 +50,49 @@ def set_active_timetable(id):
     cur.execute("UPDATE timetable SET active = 0 WHERE userid = ? AND active = 1", (userid,))
     con.commit()
 
-    cur.execute("UPDATE timetable SET active = 1 WHERE userid = ? AND id = ?", (userid, id,))
+    cur.execute("UPDATE timetable SET active = 1 WHERE userid = ? AND id = ?", (userid, tid,))
     con.commit()
     con.close()
 
     return
 
-def get_timetable_value(value, id):
+def get_timetable_value(value, tid):
     if value == "day":
         day = ""
-        if not id:
+        if not tid:
             day = "Nicht Festgelegt"
-        if id == "a":
+        if tid == "a":
             day = "Montag"
-        elif id == "b":
+        elif tid == "b":
             day = "Dienstag"
-        elif id == "c":
+        elif tid == "c":
             day = "Mittwoch"
-        elif id == "d":
+        elif tid == "d":
             day = "Donnerstag"
-        elif id == "e":
+        elif tid == "e":
             day = "Freitag"
-        elif id == "f":
+        elif tid == "f":
             day = "Samstag"
-        elif id == "g":
+        elif tid == "g":
             day = "Sonntag"
         return day
     elif value == "time":
         time = ""
-        if not id:
+        if not tid:
             time = "Nicht Festgelegt"
-        elif id == "0":
+        elif tid == "0":
             time = "06:00 - 08:00"
-        elif id == "1":
+        elif tid == "1":
             time = "08:00 - 10:00"
-        elif id == "2":
+        elif tid == "2":
             time = "10:00 - 12:00"
-        elif id == "3":
+        elif tid == "3":
             time = "12:00 - 14:00"
-        elif id == "4":
+        elif tid == "4":
             time = "14:00 - 16:00"
-        elif id == "5":
+        elif tid == "5":
             time = "16:00 - 18:00"
-        elif id == "6":
+        elif tid == "6":
             time = "18:00 - 20:00"
         return time
     else:
@@ -101,7 +101,7 @@ def get_timetable_value(value, id):
 def get_courses():
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
-    cur.execute("SELECT * FROM courses")
+    cur.execute("SELECT * FROM courses ORDER BY name ASC")
     result = cur.fetchall()
 
     con.close()
@@ -191,6 +191,7 @@ def create_timetable():
     if course and semester:
         cur.execute("INSERT INTO timetable(userid, title) VALUES (?, ?)", (userid, name,))
         con.commit()
+        tid = cur.lastrowid
 
         timetableid = cur.lastrowid
         cur.execute("SELECT * FROM lectures WHERE course = ? AND semester = ?", (course, semester))
@@ -201,17 +202,28 @@ def create_timetable():
             con.commit()
         con.close()
 
-        return
+        return tid
 
     else:
         cur.execute("INSERT INTO timetable(userid, title) VALUES (?, ?)", (userid, name,))
+        tid = cur.lastrowid
         con.commit()
         con.close()
+
+    return tid
+
+def remove_timetable(tid):
+    userid = request.get_cookie("uid", secret=user_helper.apply_secret())
+
+    con = sql.connect("tmp/database.db")
+    cur = con.cursor()
+    cur.execute("DELETE FROM timetable WHERE userid = ? AND id = ?", (userid, tid,))
+    con.commit()
 
     return
 
 def create_course(tid):
-    lecture = request.forms.get('lecture')
+    lecture = dict(request.POST.decode())['lecture']
     type = request.forms.get('type')
     color = request.forms.get('color')
     day = request.forms.get('day')
@@ -231,7 +243,7 @@ def create_course(tid):
     return
 
 def edit_course(cid):
-    lecture = dict(request.POST.decode())['lecture']
+    lecture = request.forms.get('lecture')
     type = request.forms.get('type')
     color = request.forms.get('color')
     day = request.forms.get('day')

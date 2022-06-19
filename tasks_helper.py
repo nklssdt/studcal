@@ -10,11 +10,11 @@ def get_tasks():
 
     return result
 
-def get_tasks_byid(id):
+def get_tasks_byid(tid):
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
-    cur.execute("SELECT * FROM tasks WHERE userid = ? AND id = ?", (userid, id))
+    cur.execute("SELECT * FROM tasks WHERE userid = ? AND id = ?", (userid, tid))
     result = cur.fetchall()
 
     return result
@@ -38,16 +38,16 @@ def create_task():
 
     return
 
-def view_task(id):
+def view_task(tid):
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
-    cur.execute("SELECT * FROM tasks WHERE userid = ? AND id = ?", (userid, id,))
+    cur.execute("SELECT * FROM tasks WHERE userid = ? AND id = ?", (userid, tid,))
     result = cur.fetchall()
 
     return result
 
-def edit_task(id):
+def edit_task(tid):
     title = request.forms.get('title')
     date = request.forms.get('date')
     time = request.forms.get('time')
@@ -61,7 +61,7 @@ def edit_task(id):
 
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
-    cur.execute("UPDATE tasks SET title = ?, text = ?, till_date = ? WHERE userid = ? AND id = ?", (title, text, till_date, userid, id,))
+    cur.execute("UPDATE tasks SET title = ?, text = ?, till_date = ? WHERE userid = ? AND id = ?", (title, text, till_date, userid, tid,))
     con.commit()
     con.close()
 
