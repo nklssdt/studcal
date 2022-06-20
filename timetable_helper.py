@@ -179,7 +179,7 @@ def get_lecture(lid):
     return result
 
 def create_timetable():
-    name = request.forms.get('name')
+    name = dict(request.POST.decode())['name']
     course = request.forms.get('course')
     semester = request.forms.get('semester')
 
@@ -228,8 +228,8 @@ def create_course(tid):
     color = request.forms.get('color')
     day = request.forms.get('day')
     timeslot = request.forms.get('timeslot')
-    teacher = request.forms.get('teacher')
-    location = request.forms.get('location')
+    teacher = dict(request.POST.decode())['teacher']
+    location = dict(request.POST.decode())['location']
 
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
@@ -243,13 +243,13 @@ def create_course(tid):
     return
 
 def edit_course(cid):
-    lecture = request.forms.get('lecture')
+    lecture = dict(request.POST.decode())['lecture']
     type = request.forms.get('type')
     color = request.forms.get('color')
     day = request.forms.get('day')
     timeslot = request.forms.get('timeslot')
-    teacher = request.forms.get('teacher')
-    location = request.forms.get('location')
+    teacher = dict(request.POST.decode())['teacher']
+    location = dict(request.POST.decode())['location']
 
     if not timeslot:
         timeslot = ""

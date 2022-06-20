@@ -8,8 +8,7 @@
 - Intelligente Erstellung auf Basis von Studiengang und Semester
 
 ## Aufgaben
-- Aufgaben erstellen
-- Aufgaben abschließen
+- Aufgaben erstellen, bearbeiten und abschließen
 
 
 # Noch folgende Funktionen von StudCal
@@ -17,14 +16,14 @@
 ## Registrierung
 - Bestätigungsemail für erfolgreiche Registrierung
 
-## Stundenplan
-- Anzeige der Vorlesungen auf der Hauptseite
-- Manuelles Hinzufügen von Vorlesungen
-- Bearbeitungsfunktion für Stundenplan und Vorlesungen
-
-## Tasks
-- Bearbeitung von Tasks
+## Aufgaben
 - Erinnerungsfunktion via Email-Notification
+
+## Kalender
+- Anzeige der eingetragenen Termine
+- Bearbeitung der Termine
+- Löschung der Termine
+- Erinnerung an Termine
 
 ## Einstellungen
 - Namen, Passwort und Email bearbeiten

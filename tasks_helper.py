@@ -20,10 +20,10 @@ def get_tasks_byid(tid):
     return result
 
 def create_task():
-    title = request.forms.get('title')
+    title = dict(request.POST.decode())['title']
     date = request.forms.get('date')
     time = request.forms.get('time')
-    text = request.forms.get('details')
+    text = dict(request.POST.decode())['details']
 
     from_date = datetime.datetime.now()
     till_date = date + " " + time + ":00"
@@ -48,10 +48,10 @@ def view_task(tid):
     return result
 
 def edit_task(tid):
-    title = request.forms.get('title')
+    title = dict(request.POST.decode())['title']
     date = request.forms.get('date')
     time = request.forms.get('time')
-    text = request.forms.get('details')
+    text = dict(request.POST.decode())['details']
 
     till_date = date + " " + time
 

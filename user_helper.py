@@ -53,7 +53,7 @@ def require_uid(fn):
 def register_user():
     email = request.forms.get('email')
     password = request.forms.get('password')
-    firstname = request.forms.get('firstname')
+    firstname = dict(request.POST.decode())['firstname']
 
     con = sql.connect("tmp/database.db")
     cur = con.cursor()

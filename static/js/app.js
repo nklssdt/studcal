@@ -15,24 +15,38 @@ $(document).ready(function () {
     $("#register").click(function () {
         check_Password($("#password").val(), $("#passwordconf").val())
     })
+    
+    var calendarModal = new bootstrap.Modal(document.getElementById("calendarEdit"), {});
+
+    const calFields = document.querySelectorAll('.calendarEditField')
+
+    calFields.forEach(calField =>
+        calField.addEventListener('click', calendarFieldClickHandler)
+    )
+
+    function calendarFieldClickHandler() {
+        const calDate = this.dataset.caldate
+        document.getElementById('calSetDate').value = calDate;
+        calendarModal.show();
+    }
 
     if (window.location.href.indexOf("tasks") > -1) {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
 
-        var editModal = new bootstrap.Modal(document.getElementById("taskEdit"), {});
         if (urlParams.get('action') == "edit") {
+            var editModal = new bootstrap.Modal(document.getElementById("taskEdit"), {});
             editModal.show();
         };
     }
-    
+
     if (window.location.href.indexOf("timetables") > -1) {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
 
-        var editModal = new bootstrap.Modal(document.getElementById("lectureEdit"), {});
         if (urlParams.get('action') == "edit") {
-            editModal.show();
+            var editModal = new bootstrap.Modal(document.getElementById("lectureEdit"), {});
+            editModal.show()
         };
     }
 });

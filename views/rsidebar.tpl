@@ -37,6 +37,46 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="calendarEdit" name="calendarEditModal" tabindex="-1" aria-labelledby="calendarEditLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <form action="/calendar/create" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="taskCreateLabel">Kalendareintrag hinzufügen</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <label class="form-label fw-bolder" for="titel">Titel*</label>
+                                    <input type="text" id="title" name="title" class="form-control" placeholder="Hausarbeit" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mt-3">
+                                            <label class="form-label fw-bolder" for="date">Datum*</label>
+                                            <input type="date" id="calSetDate" name="date" class="form-control" value="" required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="mt-3">
+                                            <label class="form-label fw-bolder" for="time">Zeit*</label>
+                                            <input type="time" id="time" name="time" class="form-control" placeholder="" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <label class="form-label fw-bolder" for="details">Details</label>
+                                    <textarea type="text" id="details" name="details" class="form-control" placeholder="Mehr Informationen" rows="4"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="sc-btn sc-light" data-bs-dismiss="modal">Abbrechen</button>
+                                <button type="submit" id="calendar_edit_id" class="sc-btn sc-secondary">Bearbeiten</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         <div class="row h-100 justify-content-center sc-task-box overflow-auto">
             %for row in rows:
             <div class="sc-task-card mb-2">
