@@ -152,9 +152,17 @@ def tasks():
     dishes = mensa_helper.view_dishes()
     return template('tasks', **dishes, active_page="tasks", rows=tasks)
 
+@route('/tasks/<action>', method='POST')
+@user_helper.require_uid
+def tasks__create_action(action):
+    if action == "create":
+        tasks_helper.create_task()
+        redirect('/tasks')
+    return
+
 @route('/tasks/<action>/<tid>', method='POST')
 @user_helper.require_uid
-def tasks_action(action, tid):
+def tasks__create_action(action, tid):
     if action == "create":
         tasks_helper.create_task()
         redirect('/tasks')

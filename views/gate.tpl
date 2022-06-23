@@ -1,3 +1,5 @@
+%from bottle import request
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +22,7 @@
                     <div class="sc-glass-card">
                         <div class="row g-0">
                             <div class="col-md-6 col-lg-5 d-none d-md-block">
-                                <img rel=preload as=image src="static/images/gate-image.png" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                                <img rel=preload as=image src="static/images/gate-image.png" class="img-fluid h-100" style="border-radius: 1rem 0 0 1rem;" />
                             </div>
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                 <div class="card-body p-4 p-lg-5 text-black">
@@ -30,6 +32,9 @@
                                         </div>
                                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Logge dich in deinen Account ein.</h5>
                                         <div class="form-outline mb-4">
+                                            %if request.query.error == 'login-error':
+                                            <div class="alert alert-danger mb-3"><strong>Fehler:</strong> Das Passwort und/oder die E-Mail scheinen nicht korrekt zu sein. Bitte probiere es erneut.</div>
+                                            %end
                                             <div>
                                                 <label class="form-label fw-bolder" for="password">E-Mail*</label>
                                                 <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="mail@domain.de" required>

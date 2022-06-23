@@ -79,6 +79,15 @@
                                 </div>
                             </div>
                             %end
+                            %if not rows:
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">Keine Aufgaben gefunden. Um einen neue Aufgabe hinzuzufügen, drücke einfach auf "+ Hinzufügen".</p>
+                                    </div>
+                                </div>
+                            </div>
+                            %end
                         </div>
                     </div>
                 </div>

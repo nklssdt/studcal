@@ -189,6 +189,7 @@ a:hover {
     background: #fff;
     border-radius: 1rem;
     border: 1px solid #eee;
+    height: fit-content;
 }
 
 .sc-mensa-day {
