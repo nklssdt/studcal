@@ -1,10 +1,15 @@
 from bottle import request, redirect, response
 from bcrypt import checkpw, hashpw, gensalt
 
-import sqlite3 as sql, random, string
+import sqlite3 as sql
+import random
+import string
+
 
 def apply_secret():
-    return "7v1glNn3SVGMrs7w2cb0"
+    secretKey = "7v1glNn3SVGMrs7w2cb0"
+    return secretKey
+
 
 def login_verify():
     email = request.forms.get('email')
@@ -23,8 +28,10 @@ def login_verify():
         if results is None or not checkpw(password.encode('utf-8'), row[1]):
             return redirect('./gate?error=login-error')
         return login_user(row[0], email, staylogged)
+    return
 
-def login_user(userid, email, staylogged = 0):
+
+def login_user(userid, email, staylogged=0):
     if staylogged:
         response.set_cookie("email", email, path='/', secret=apply_secret(), max_age=60*60*24*30)
         response.set_cookie("uid", userid, path='/', secret=apply_secret(), max_age=60*60*24*30)
@@ -33,14 +40,17 @@ def login_user(userid, email, staylogged = 0):
         response.set_cookie("uid", userid, path='/', secret=apply_secret())
     return redirect('./')
 
+
 def redirect_user():
     if request.get_cookie("email", secret=apply_secret()):
         return redirect("./")
+
 
 def logout_user():
     response.set_cookie("email", "", path='/')
     response.set_cookie("uid", "", path='/')
     return redirect('./gate')
+
 
 def require_uid(fn):
     def check_uid(**kwargs):
@@ -49,6 +59,7 @@ def require_uid(fn):
         else:
             redirect("./gate")
     return check_uid
+
 
 def register_user():
     email = request.forms.get('email')

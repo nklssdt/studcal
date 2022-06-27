@@ -66,7 +66,7 @@
                                                 </a>
                                             </div>
                                             <div class="d-inline">
-                                                <a href="/timetables/edit/{{row[0]}}">
+                                                <a href="/timetables/view/{{row[0]}}?action=edit-timetable">
                                                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
                                                         <path d="M12 20h9"></path>
                                                         <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
@@ -88,6 +88,15 @@
                             </div>
                         </div>
                         %end
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-text"><strong>Hinweis:</strong> Zum aktivieren eines Stundenplans klicke auf das jeweilige <svg class="" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                                        </svg> Bookmark Symbol.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

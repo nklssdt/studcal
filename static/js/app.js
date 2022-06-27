@@ -49,6 +49,26 @@ $(document).ready(function () {
             editModal.show()
         };
     }
+    
+    if (window.location.href.indexOf("timetables") > -1) {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        if (urlParams.get('action') == "edit-timetable") {
+            var editModal = new bootstrap.Modal(document.getElementById("timetableEdit"), {});
+            editModal.show()
+        };
+    }
+    
+    if (window.location.href.indexOf("calendar") > -1) {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        if (urlParams.get('action') == "edit") {
+            var editModal = new bootstrap.Modal(document.getElementById("calendarEdit"), {});
+            editModal.show()
+        };
+    }
 });
 
 function check_Password(password, password_conf) {

@@ -1,8 +1,7 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-import sqlite3 as sql, user_helper, ast
+import sqlite3 as sql
+import user_helper
 from bottle import request, redirect
+
 
 def get_timetables():
     con = sql.connect("tmp/database.db")
@@ -14,6 +13,7 @@ def get_timetables():
     con.close()
 
     return result
+
 
 def get_timetables_name(timetableid):
     con = sql.connect("tmp/database.db")
@@ -27,6 +27,7 @@ def get_timetables_name(timetableid):
     con.close()
 
     return result[0]
+
 
 def get_timetables_active():
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
@@ -42,6 +43,7 @@ def get_timetables_active():
 
     return result
 
+
 def set_active_timetable(tid):
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
@@ -55,6 +57,7 @@ def set_active_timetable(tid):
     con.close()
 
     return
+
 
 def get_timetable_value(value, tid):
     if value == "day":
@@ -98,6 +101,7 @@ def get_timetable_value(value, tid):
     else:
         return
 
+
 def get_courses():
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
@@ -107,6 +111,7 @@ def get_courses():
     con.close()
 
     return result
+
 
 def get_timetables_active_courses(timeslot):
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
@@ -118,31 +123,30 @@ def get_timetables_active_courses(timeslot):
     cur.execute("SELECT * FROM user_courses WHERE timetableid = ? AND userid = ? AND timeslot = ?", (timetableid, userid, timeslot))
     result = cur.fetchall()
 
-    # 6 Dates 7 Time
-    newlist =  []
+    newlist = []
 
     if not result:
-        newlist = [('', '', '', ''),('','', '', ''),('','', '', ''),('','', '', ''),('','', '', ''),('','', '', ''),('','', '', '')]
+        newlist = [('', '', '', '', ''), ('', '', '', '', ''), ('', '', '', '', ''), ('', '', '', '', ''), ('', '', '', '', ''), ('', '', '', '', ''), ('', '', '', '', '')]
 
     else:
-        varA, varB, varC, varD, varE, varF, varG = (("","","",""), )*7
+        varA, varB, varC, varD, varE, varF, varG = (("", "", "", "", ""), )*7
 
         for row in result:
             if row[6] == "a":
-                varA = ((row[3], row[5], row[0], row[2]))
+                varA = ((row[3], row[5], row[0], row[2], row[4]))
             if row[6] == "b":
-                varB = ((row[3], row[5], row[0], row[2]))
+                varB = ((row[3], row[5], row[0], row[2], row[4]))
             if row[6] == "c":
-                varC = ((row[3], row[5], row[0], row[2]))
+                varC = ((row[3], row[5], row[0], row[2], row[4]))
             if row[6] == "d":
-                varD = ((row[3], row[5], row[0], row[2]))
+                varD = ((row[3], row[5], row[0], row[2], row[4]))
             if row[6] == "e":
-                varE = ((row[3], row[5], row[0], row[2]))
+                varE = ((row[3], row[5], row[0], row[2], row[4]))
             if row[6] == "f":
-                varF = ((row[3], row[5], row[0], row[2]))
+                varF = ((row[3], row[5], row[0], row[2], row[4]))
             if row[6] == "g":
-                varG = ((row[3], row[5], row[0], row[2]))
-                
+                varG = ((row[3], row[5], row[0], row[2], row[4]))
+
         newlist.append(varA)
         newlist.append(varB)
         newlist.append(varC)
@@ -153,6 +157,7 @@ def get_timetables_active_courses(timeslot):
 
     con.close()
     return newlist
+
 
 def get_user_courses(timetableid):
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
@@ -166,6 +171,7 @@ def get_user_courses(timetableid):
 
     return result
 
+
 def get_lecture(lid):
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
@@ -177,6 +183,7 @@ def get_lecture(lid):
     con.close()
 
     return result
+
 
 def create_timetable():
     name = dict(request.POST.decode())['name']
@@ -212,6 +219,19 @@ def create_timetable():
 
     return tid
 
+
+def update_timetable(tid):
+    name = dict(request.POST.decode())['name']
+    userid = request.get_cookie("uid", secret=user_helper.apply_secret())
+
+    con = sql.connect("tmp/database.db")
+    cur = con.cursor()
+    cur.execute("UPDATE timetable SET title = ? WHERE userid = ? AND id = ?", (name, userid, tid,))
+    con.commit()
+
+    return
+
+
 def remove_timetable(tid):
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
@@ -220,7 +240,11 @@ def remove_timetable(tid):
     cur.execute("DELETE FROM timetable WHERE userid = ? AND id = ?", (userid, tid,))
     con.commit()
 
+    cur.execute("DELETE FROM user_courses WHERE userid = ? AND timetableid = ?", (userid, tid,))
+    con.commit()
+
     return
+
 
 def create_course(tid):
     lecture = dict(request.POST.decode())['lecture']
@@ -241,6 +265,7 @@ def create_course(tid):
     con.close()
 
     return
+
 
 def edit_course(cid):
     lecture = dict(request.POST.decode())['lecture']
@@ -269,6 +294,7 @@ def edit_course(cid):
     con.close()
 
     return
+
 
 def remove_course(cid):
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())

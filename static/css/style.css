@@ -104,6 +104,10 @@ a:hover {
 
 /* Utilities */
 
+.fs-7 {
+    font-size: 0.9rem !important;
+}
+
 .sc-navbar {
     height: 60px;
     max-height: 60px;
@@ -275,7 +279,11 @@ a:hover {
 }
 
 .calendarHasDates {
-    border-bottom: 1px solid var(--secondary);
+    border-bottom: 2px solid var(--secondary);
+}
+
+.calendarList2 .active.calendarHasDates {
+    border-bottom: 0;
 }
 
 /* Buttons */

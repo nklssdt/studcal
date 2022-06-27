@@ -1,51 +1,51 @@
 const months = [
     {
         'id': 1,
-        'name': 'Jan'
+        'name': 'Januar'
     },
     {
         'id': 2,
-        'name': 'Feb'
+        'name': 'Februar'
     },
     {
         'id': 3,
-        'name': 'Mar'
+        'name': 'März'
     },
     {
         'id': 4,
-        'name': 'Apr'
+        'name': 'April'
     },
     {
         'id': 5,
-        'name': 'May'
+        'name': 'Mai'
     },
     {
         'id': 6,
-        'name': 'Jun'
+        'name': 'Juni'
     },
     {
         'id': 7,
-        'name': 'Jul'
+        'name': 'Juli'
     },
     {
         'id': 8,
-        'name': 'Aug'
+        'name': 'August'
     },
     {
         'id': 9,
-        'name': 'Sep'
+        'name': 'September'
     },
     {
         'id': 10,
-        'name': 'Oct'
+        'name': 'Oktober'
     },
     {
         'id': 11,
-        'name': 'Nov'
+        'name': 'November'
     },
     {
         'id': 12,
-        'name': 'Dec'
+        'name': 'Dezember'
     },
 ];
 var currentYear = new Date().getFullYear();
@@ -95,6 +95,7 @@ function makeCalendar(year, month) {
                 setactive = ""
             }
             var div = '<li class="calendarEditField ' + setactive + '" data-caldate="' + year + '-' + fmonth + '-' + fi + '">' + i + '</li>'
+            showInfo(fulldate);
         }
         $('#calendarList').append(div);
     }
@@ -125,4 +126,34 @@ function prevMonth() {
     $('#calendarList').empty();
     $('#yearMonth').text(currentYear + ' ' + currentMonth);
     makeCalendar(currentYear, currentMonth);
+}
+
+function showInfo(event) {
+    // link 
+    var url = '/api/calendar/get_info';
+    // get json
+    getjson(url, function (obj) {
+        for (key in obj) {
+            if (event === key) {
+                $('[data-caldate="' + key + '"]').addClass('calendarHasDates');  
+            }
+        }
+    });
+}
+
+function getjson(url, callback) {
+    var self = this,
+        ajax = new XMLHttpRequest();
+    ajax.open('GET', url, true);
+    ajax.onreadystatechange = function () {
+        if (ajax.readyState == 4) {
+            if (ajax.status == 200) {
+                var data = JSON.parse(ajax.responseText);
+                return callback(data);
+            } else {
+                console.log(ajax.status);
+            }
+        }
+    };
+    ajax.send();
 }

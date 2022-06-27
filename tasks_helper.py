@@ -1,5 +1,8 @@
-import sqlite3 as sql, user_helper, datetime
+import sqlite3 as sql
+import user_helper
+import datetime
 from bottle import request, redirect
+
 
 def get_tasks():
     con = sql.connect("tmp/database.db")
@@ -10,6 +13,7 @@ def get_tasks():
 
     return result
 
+
 def get_tasks_byid(tid):
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
@@ -18,6 +22,7 @@ def get_tasks_byid(tid):
     result = cur.fetchall()
 
     return result
+
 
 def create_task():
     title = dict(request.POST.decode())['title']
@@ -38,6 +43,7 @@ def create_task():
 
     return
 
+
 def view_task(tid):
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
@@ -46,6 +52,7 @@ def view_task(tid):
     result = cur.fetchall()
 
     return result
+
 
 def edit_task(tid):
     title = dict(request.POST.decode())['title']
@@ -66,6 +73,7 @@ def edit_task(tid):
     con.close()
 
     return
+
 
 def complete_task(taskid):
     prev_page = request.get_cookie("pp")

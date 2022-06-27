@@ -24,11 +24,15 @@
             <div class="col h-100 overflow-auto">
                 <div class="container p-3 mt-3">
                     <div class="row ps-2">
-                        <div class="col-10">
-                            <h1><span class="ms-2">Stundenplan "{{timetable_helper.get_timetables_name(timetableid)}}" verwalten</span></h1>
+                        <div class="col-7">
+                            <h2><span class="ms-2">Stundenplan <strong>{{timetable_helper.get_timetables_name(timetableid)}}</strong> verwalten</span></h2>
                         </div>
-                        <div class="col-2">
-                            <button class="sc-btn sc-secondary float-end" type="button" data-bs-toggle="modal" data-bs-target="#lectureCreate">+ Hinzufügen</button>
+                        <div class="col-5">
+                            <button class="sc-btn sc-secondary float-end" type="button" data-bs-toggle="modal" data-bs-target="#lectureCreate">+ Kurs Hinzufügen</button>
+                            <button class="sc-btn sc-secondary me-2 float-end" type="button" data-bs-toggle="modal" data-bs-target="#timetableEdit"><svg viewBox="0 1 26 26" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
+                                    <path d="M12 20h9"></path>
+                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                </svg> Bearbeiten</button>
                         </div>
                     </div>
                 </div>
@@ -213,6 +217,16 @@
             </div>
             %lecture = timetable_helper.get_lecture(request.query.id)
             %for lec in lecture:
+            %if not lec[8]:
+            %place = ""
+            %else:
+            %place = lec[8]
+            %end
+            %if not lec[9]:
+            %teacher = ""
+            %else:
+            %teacher = lec[9]
+            %end
             <div class="modal fade" id="lectureEdit" tabindex="-1" aria-labelledby="lectureEditLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -270,11 +284,11 @@
                                     <div class="row">
                                         <div class="col">
                                             <label class="form-label fw-bolder" for="titel">Ort</label>
-                                            <input type="text" id="location" name="location" class="form-control" placeholder="SFG 2020" value="{{lec[8]}}">
+                                            <input type="text" id="location" name="location" class="form-control" placeholder="SFG 2020" value="{{place}}">
                                         </div>
                                         <div class="col">
                                             <label class="form-label fw-bolder" for="titel">Lehrkraft</label>
-                                            <input type="text" id="teacher" name="teacher" class="form-control" placeholder="Frau Musterfrau" value="{{lec[9]}}">
+                                            <input type="text" id="teacher" name="teacher" class="form-control" placeholder="Frau Musterfrau" value="{{teacher}}">
                                         </div>
                                     </div>
                                 </div>
@@ -303,6 +317,28 @@
                 </div>
             </div>
             %end
+            <div class="modal fade" id="timetableEdit" tabindex="-1" aria-labelledby="timetableEditLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <form action="/timetables/edit/{{timetableid}}" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="timetableCreateLabel">Stundenplan bearbeiten</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <label class="form-label fw-bolder" for="titel">Titel*</label>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="3. Semester" value="{{timetable_helper.get_timetables_name(timetableid)}}" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="sc-btn sc-light" data-bs-dismiss="modal">Abbrechen</button>
+                                <button type="submit" class="sc-btn sc-secondary">Bearbeiten</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             %include('rsidebar.tpl')
         </div>
     </div>

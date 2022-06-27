@@ -59,9 +59,18 @@
                                                     %course = timetable_helper.get_timetables_active_courses("0")
                                                     %for index, cval in enumerate(course):
                                                     %if cval[0]:
+                                                    %if cval[4] == "V":
+                                                    %module_type = "Vorlesung"
+                                                    %elif cval[4] == "Ü":
+                                                    %module_type = "Übung"
+                                                    %elif cval[4] == "T":
+                                                    %module_type = "Tutorium"
+                                                    %else:
+                                                    %module_type = "Sonstige"
+                                                    %end
                                                     <td class="dropend">
                                                         <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            {{cval[0]}}
+                                                            <span><span class="fw-light fs-7">{{module_type}}</span><br>{{cval[0]}}</span>
                                                         </div>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
                                                             <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
@@ -79,9 +88,18 @@
                                                     %course = timetable_helper.get_timetables_active_courses("1")
                                                     %for index, cval in enumerate(course):
                                                     %if cval[0]:
+                                                    %if cval[4] == "V":
+                                                    %module_type = "Vorlesung"
+                                                    %elif cval[4] == "Ü":
+                                                    %module_type = "Übung"
+                                                    %elif cval[4] == "T":
+                                                    %module_type = "Tutorium"
+                                                    %else:
+                                                    %module_type = "Sonstige"
+                                                    %end
                                                     <td class="dropend">
                                                         <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            {{cval[0]}}
+                                                            <span><span class="fw-light fs-7">{{module_type}}</span><br>{{cval[0]}}</span>
                                                         </div>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
                                                             <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
@@ -99,9 +117,18 @@
                                                     %course = timetable_helper.get_timetables_active_courses("2")
                                                     %for index, cval in enumerate(course):
                                                     %if cval[0]:
+                                                    %if cval[4] == "V":
+                                                    %module_type = "Vorlesung"
+                                                    %elif cval[4] == "Ü":
+                                                    %module_type = "Übung"
+                                                    %elif cval[4] == "T":
+                                                    %module_type = "Tutorium"
+                                                    %else:
+                                                    %module_type = "Sonstige"
+                                                    %end
                                                     <td class="dropend">
                                                         <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            {{cval[0]}}
+                                                            <span><span class="fw-light fs-7">{{module_type}}</span><br>{{cval[0]}}</span>
                                                         </div>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
                                                             <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
@@ -119,9 +146,18 @@
                                                     %course = timetable_helper.get_timetables_active_courses("3")
                                                     %for index, cval in enumerate(course):
                                                     %if cval[0]:
+                                                    %if cval[4] == "V":
+                                                    %module_type = "Vorlesung"
+                                                    %elif cval[4] == "Ü":
+                                                    %module_type = "Übung"
+                                                    %elif cval[4] == "T":
+                                                    %module_type = "Tutorium"
+                                                    %else:
+                                                    %module_type = "Sonstige"
+                                                    %end
                                                     <td class="dropend">
                                                         <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            {{cval[0]}}
+                                                            <span><span class="fw-light fs-7">{{module_type}}</span><br>{{cval[0]}}</span>
                                                         </div>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
                                                             <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
@@ -139,9 +175,18 @@
                                                     %course = timetable_helper.get_timetables_active_courses("4")
                                                     %for index, cval in enumerate(course):
                                                     %if cval[0]:
+                                                    %if cval[4] == "V":
+                                                    %module_type = "Vorlesung"
+                                                    %elif cval[4] == "Ü":
+                                                    %module_type = "Übung"
+                                                    %elif cval[4] == "T":
+                                                    %module_type = "Tutorium"
+                                                    %else:
+                                                    %module_type = "Sonstige"
+                                                    %end
                                                     <td class="dropend">
                                                         <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            {{cval[0]}}
+                                                            <span><span class="fw-light fs-7">{{module_type}}</span><br>{{cval[0]}}</span>
                                                         </div>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
                                                             <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
@@ -159,9 +204,18 @@
                                                     %course = timetable_helper.get_timetables_active_courses("5")
                                                     %for index, cval in enumerate(course):
                                                     %if cval[0]:
+                                                    %if cval[4] == "V":
+                                                    %module_type = "Vorlesung"
+                                                    %elif cval[4] == "Ü":
+                                                    %module_type = "Übung"
+                                                    %elif cval[4] == "T":
+                                                    %module_type = "Tutorium"
+                                                    %else:
+                                                    %module_type = "Sonstige"
+                                                    %end
                                                     <td class="dropend">
                                                         <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            {{cval[0]}}
+                                                            <span><span class="fw-light fs-7">{{module_type}}</span><br>{{cval[0]}}</span>
                                                         </div>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
                                                             <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
@@ -179,9 +233,18 @@
                                                     %course = timetable_helper.get_timetables_active_courses("6")
                                                     %for index, cval in enumerate(course):
                                                     %if cval[0]:
+                                                    %if cval[4] == "V":
+                                                    %module_type = "Vorlesung"
+                                                    %elif cval[4] == "Ü":
+                                                    %module_type = "Übung"
+                                                    %elif cval[4] == "T":
+                                                    %module_type = "Tutorium"
+                                                    %else:
+                                                    %module_type = "Sonstige"
+                                                    %end
                                                     <td class="dropend">
                                                         <div class="sc-card sc-tt d-flex align-items-center justify-content-center" id="dropdown{{cval[2]}}" style="background-color: {{cval[1]}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            {{cval[0]}}
+                                                            <span><span class="fw-light fs-7">{{module_type}}</span><br>{{cval[0]}}</span>
                                                         </div>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdown{{cval[2]}}">
                                                             <li><a class="dropdown-item" href="/timetables/view/{{cval[3]}}">Anzeigen</a></li>
