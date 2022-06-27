@@ -360,6 +360,16 @@ a:hover {
 }
 
 
+.sc-btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.sc-btn-outline-primary:hover {
+    color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
 /* Table Colors */
 .sc-color-1 {
     color: white;

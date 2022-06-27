@@ -51,9 +51,9 @@
                                 </div>
                                 <div class="col-2">
                                     <a href="/calendar/view/{{cale[0]}}?action=edit"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
-                                        <path d="M12 20h9"></path>
-                                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                                    </svg></a>
+                                            <path d="M12 20h9"></path>
+                                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                        </svg></a>
                                 </div>
                             </div>
                         </div>
@@ -103,6 +103,14 @@
             </div>
         </div>
         <div class="row h-100 d-flex align-content-start flex-wrap sc-task-box overflow-auto">
+            <form action="/tasks/quick-create" class="p-0" method="post">
+                <div class="input-group mb-3 p-0">
+                    <input type="text" class="form-control" name="title" placeholder="Neue Aufgabe eingeben" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn sc-btn-outline-primary" type="submit"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg></button>
+                    </div>
+                </div>
+            </form>
             %for row in rows:
             <div class="sc-task-card mb-2">
                 <div class="card-body">

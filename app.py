@@ -235,6 +235,10 @@ def tasks__create_action(action):
     if action == "create":
         tasks_helper.create_task()
         redirect('/tasks')
+    elif action == "quick-create":
+        returnpage = request.get_cookie("pp")
+        tasks_helper.create_quick_task()
+        redirect(returnpage)
     return
 
 
