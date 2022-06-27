@@ -101,6 +101,20 @@ function makeCalendar(year, month) {
     }
     monthName = months.find(x => x.id === month).name;
     $('#yearMonth').text(year + ' ' + monthName);
+    
+    var calendarModal = new bootstrap.Modal(document.getElementById("calendarEdit"), {});
+
+    const calFields = document.querySelectorAll('.calendarEditField')
+
+    calFields.forEach(calField =>
+        calField.addEventListener('click', calendarFieldClickHandler)
+    )
+
+    function calendarFieldClickHandler() {
+        const calDate = this.dataset.caldate
+        document.getElementById('calSetDate').value = calDate;
+        calendarModal.show();
+    }
 }
 
 makeCalendar(currentYear, currentMonth);
