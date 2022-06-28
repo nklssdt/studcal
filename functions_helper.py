@@ -3,25 +3,9 @@ import locale
 
 locale.setlocale(locale.LC_ALL, '')
 
-
-def setActivePage(page):
-    if page == "index":
-        return "active"
-    elif page == "mensa":
-        return "active"
-    elif page == "tasks":
-        return "active"
-    elif page == "timetable":
-        return "active"
-
-
 date_format = '%Y/%m/%d'
 mensa_format = '%A, %d.%m.%Y'
 month_format = '%B, %Y'
-
-def month2str(date) -> str:
-    datestr = datetime.datetime.strftime(date, month_format)
-    return datestr
 
 
 def mensa_date_conv(add_days) -> str:
