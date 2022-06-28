@@ -5,7 +5,7 @@ from datetime import datetime
 from bottle import request, redirect
 
 
-def create_entry():
+def create_entry():  # Erstellt einen neuen Eintrag im Kalender
     title = dict(request.POST.decode())['title']
     date = request.forms.get('date')
     time = request.forms.get('time')
@@ -25,7 +25,7 @@ def create_entry():
     return
 
 
-def edit_calendar(cid):
+def edit_calendar(cid):  # Editiert einen Eintrag im Kalender
     title = dict(request.POST.decode())['title']
     date = request.forms.get('date')
     time = request.forms.get('time')
@@ -46,7 +46,7 @@ def edit_calendar(cid):
     return
 
 
-def remove_entry(cid):
+def remove_entry(cid):  # Löscht einen Eintrag im Kalender
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
     prev_page = request.get_cookie("pp")
 
@@ -58,7 +58,7 @@ def remove_entry(cid):
     return redirect(prev_page)
 
 
-def get_date(cid):
+def get_date(cid):  # Gibt die Daten eines bestimmten Eintrags wieder
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")
@@ -70,7 +70,7 @@ def get_date(cid):
     return rows
 
 
-def get_dates():
+def get_dates():  # Gibt den nächsten Eintrag wieder
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")
@@ -82,7 +82,7 @@ def get_dates():
     return rows
 
 
-def get_all_dates():
+def get_all_dates():  # Gibt die Daten aller Einträge ab jetzt Zeitpunkt "jetzt" wieder
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")
@@ -94,19 +94,19 @@ def get_all_dates():
     return rows
 
 
-def get_all_privious_dates():
+def get_all_privious_dates():  # Gibt die Daten aller Einträge wieder
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
-    cur.execute("SELECT * FROM calendar WHERE userid = ? ORDER BY till_date ASC", (userid,))
+    cur.execute("SELECT * FROM calendar WHERE userid = ? AND finished = '0' ORDER BY till_date ASC", (userid,))
     rows = cur.fetchall()
     con.close()
 
     return rows
 
 
-def get_json_dates():
+def get_json_dates():  # Konvertiert die Daten zu JSON um sie im Kalender Widget anzuzeigen
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")

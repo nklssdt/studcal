@@ -6,12 +6,12 @@ import random
 import string
 
 
-def apply_secret():
+def apply_secret():  # Secret Key für die Cookies
     secretKey = "7v1glNn3SVGMrs7w2cb0"
     return secretKey
 
 
-def login_verify():
+def login_verify():  # Prüft das eingebene Passwort
     email = request.forms.get('email')
     password = request.forms.get('password')
     if request.forms.get("staylogged"):
@@ -31,7 +31,7 @@ def login_verify():
     return
 
 
-def login_user(userid, email, staylogged=0):
+def login_user(userid, email, staylogged=0):  # Loggt den Nutzer durch das Setzen von Cookies ein
     if staylogged:
         response.set_cookie("email", email, path='/', secret=apply_secret(), max_age=60*60*24*30)
         response.set_cookie("uid", userid, path='/', secret=apply_secret(), max_age=60*60*24*30)
@@ -41,27 +41,29 @@ def login_user(userid, email, staylogged=0):
     return redirect('./')
 
 
-def redirect_user():
+def redirect_user():  # Leitet den Nutzer bei erfolgter Anmeldung von der Gate Seite weg
     if request.get_cookie("email", secret=apply_secret()):
         return redirect("./")
 
 
-def logout_user():
+def logout_user():  # Loggt den Nutzer aus, durch Nullsetzen der Cookies
     response.set_cookie("email", "", path='/')
     response.set_cookie("uid", "", path='/')
     return redirect('./gate')
 
 
-def require_uid(fn):
+def require_uid(fn):  # Funktion die prüft ob die Cookies gesetzt sind und wenn nicht löscht er alle Cookies und leitet er den Nutzer zum Gate weiter.
     def check_uid(**kwargs):
         if request.get_cookie("email", secret=apply_secret()):
             return fn(**kwargs)
         else:
+            response.set_cookie("email", "", path='/')
+            response.set_cookie("uid", "", path='/')
             redirect("./gate")
     return check_uid
 
 
-def register_user():
+def register_user():  # Funktion zum Anlegen eines Nutzers
     email = request.forms.get('email')
     password = request.forms.get('password')
     firstname = dict(request.POST.decode())['firstname']

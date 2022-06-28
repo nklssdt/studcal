@@ -4,7 +4,7 @@ import datetime
 from bottle import request, redirect
 
 
-def get_tasks():
+def get_tasks():  # Gibt alle Aufgaben wieder
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
@@ -14,17 +14,7 @@ def get_tasks():
     return result
 
 
-def get_tasks_byid(tid):
-    con = sql.connect("tmp/database.db")
-    cur = con.cursor()
-    userid = request.get_cookie("uid", secret=user_helper.apply_secret())
-    cur.execute("SELECT * FROM tasks WHERE userid = ? AND id = ?", (userid, tid))
-    result = cur.fetchall()
-
-    return result
-
-
-def create_task():
+def create_task():  # Erstellt eine neue Aufgabe
     title = dict(request.POST.decode())['title']
     date = request.forms.get('date')
     time = request.forms.get('time')
@@ -44,7 +34,7 @@ def create_task():
     return
 
 
-def create_quick_task():
+def create_quick_task():  # Erstellt eine neue "schnelle Aufgabe"
     title = dict(request.POST.decode())['title']
     text = ""
 
@@ -62,7 +52,7 @@ def create_quick_task():
     return
 
 
-def view_task(tid):
+def view_task(tid):  # Zeigt eine bestimmte Aufgabe mit der id = tid wieder
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
@@ -72,7 +62,7 @@ def view_task(tid):
     return result
 
 
-def edit_task(tid):
+def edit_task(tid):  # Editiert eine Aufgabe mit der id = tid
     title = dict(request.POST.decode())['title']
     date = request.forms.get('date')
     time = request.forms.get('time')
@@ -93,7 +83,7 @@ def edit_task(tid):
     return
 
 
-def complete_task(taskid):
+def complete_task(taskid):  # Beendet eine Aufgabe mti der id = tid
     prev_page = request.get_cookie("pp")
 
     con = sql.connect("tmp/database.db")

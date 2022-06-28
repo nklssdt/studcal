@@ -3,7 +3,7 @@ import user_helper
 from bottle import request, redirect
 
 
-def get_timetables():
+def get_timetables():  # Gibt alle Stundenpläne wieder
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
@@ -15,7 +15,7 @@ def get_timetables():
     return result
 
 
-def get_timetables_name(timetableid):
+def get_timetables_name(timetableid):  # Gibt den Namen des Stundenplans aus
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
 
@@ -29,7 +29,7 @@ def get_timetables_name(timetableid):
     return result[0]
 
 
-def get_timetables_active():
+def get_timetables_active():  # Prüft ob ein Stundenplan aktiv ist und wenn gibt er die Daten aus
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")
@@ -44,7 +44,7 @@ def get_timetables_active():
     return result
 
 
-def set_active_timetable(tid):
+def set_active_timetable(tid):  # Aktiviert einen Stundenplan mit der id = tid
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")
@@ -102,7 +102,7 @@ def get_timetable_value(value, tid):
         return
 
 
-def get_courses():
+def get_courses():  # Gibt die eingespeicherten Module für die jeweiligen Studiengänge und Semester aus
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM courses ORDER BY name ASC")
@@ -113,7 +113,7 @@ def get_courses():
     return result
 
 
-def get_timetables_active_courses(timeslot):
+def get_timetables_active_courses(timeslot):  # Gibt die Module aus dem jeweiligen Stundenplan wieder und gibt sie je nach Zeitslot wieder
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
@@ -159,7 +159,7 @@ def get_timetables_active_courses(timeslot):
     return newlist
 
 
-def get_user_courses(timetableid):
+def get_user_courses(timetableid):  # Zeigt die Module eines Stundenplans mit der id = tid an
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")
@@ -172,7 +172,7 @@ def get_user_courses(timetableid):
     return result
 
 
-def get_lecture(lid):
+def get_lecture(lid):  # Zeigt ein bestimmtes Modul aus einem Stundenplan an
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")
@@ -185,7 +185,7 @@ def get_lecture(lid):
     return result
 
 
-def create_timetable():
+def create_timetable():  # Erstellt einen neuen Stundenplan
     name = dict(request.POST.decode())['name']
     course = request.forms.get('course')
     semester = request.forms.get('semester')
@@ -195,7 +195,7 @@ def create_timetable():
     con = sql.connect("tmp/database.db")
     cur = con.cursor()
 
-    if course and semester:
+    if course and semester:  # Wenn Studiengang und Semester gegeben, sucht er die Daten aus der Datenbank und fügt die vordefinierten Kurse ein
         cur.execute("INSERT INTO timetable(userid, title) VALUES (?, ?)", (userid, name,))
         con.commit()
         tid = cur.lastrowid
@@ -220,7 +220,7 @@ def create_timetable():
     return tid
 
 
-def update_timetable(tid):
+def update_timetable(tid):  # Editiert den Studenplannamen
     name = dict(request.POST.decode())['name']
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
@@ -232,7 +232,7 @@ def update_timetable(tid):
     return
 
 
-def remove_timetable(tid):
+def remove_timetable(tid):  # Löscht den Stundenplan
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")
@@ -246,7 +246,7 @@ def remove_timetable(tid):
     return
 
 
-def create_course(tid):
+def create_course(tid):  # Erstellt ein neues Modul über die manuelle Hinzufügenoption
     lecture = dict(request.POST.decode())['lecture']
     type = request.forms.get('type')
     color = request.forms.get('color')
@@ -267,7 +267,7 @@ def create_course(tid):
     return
 
 
-def edit_course(cid):
+def edit_course(cid):  # Funktion zum editieren der Module
     lecture = dict(request.POST.decode())['lecture']
     type = request.forms.get('type')
     color = request.forms.get('color')
@@ -296,7 +296,7 @@ def edit_course(cid):
     return
 
 
-def remove_course(cid):
+def remove_course(cid):  # Funktion zum Löschen der Module
     userid = request.get_cookie("uid", secret=user_helper.apply_secret())
 
     con = sql.connect("tmp/database.db")

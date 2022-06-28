@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from bottle import route, run, template, static_file, redirect, request, response
 
 import mensa_helper
@@ -201,7 +199,7 @@ def calendar_action(action, cid):
     elif action == "view":
         response.set_cookie("pp", "/calendar/view/" + cid)
         cal_data = calendar_helper.get_date(cid)
-        return template('calendar_view', **dishes, active_page="tasks", rows=tasks, caldata=cal_data, calentry=calendar)
+        return template('calendar_view', **dishes, active_page="calendar", rows=tasks, caldata=cal_data, calentry=calendar)
 
 
 @route('/calendar/<action>/<cid>', method='POST')
